@@ -4,12 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": " node --watch server .js"
+    "dev": " node --watch server .js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^5.2.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hedil1/TP1_MERN-Stack.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hedil1/TP1_MERN-Stack/issues"
+  },
+  "homepage": "https://github.com/hedil1/TP1_MERN-Stack#readme"
 }
