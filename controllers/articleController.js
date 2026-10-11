@@ -31,7 +31,7 @@ const getArticleById = (req, res) => {
 
 
 const createArticle = (req, res) => {
-  const { title, author } = req.body; 
+  const { title, author } = req.body;
 
   if (!title || !author) { // validation : les deux champs sont obligatoires
     return res.status(400).json({ error: "Le titre et l’auteur sont obligatoires" });
@@ -45,9 +45,45 @@ const createArticle = (req, res) => {
   res.status(201).json({ message: 'Article créé', article: nouvelArticle });
 }
 
+const updateArticle = (req, res) => {
+  const id = Number(req.params.id);
+  const { title, author } = req.body; //destructuration
+
+  const index = articles.findIndex(a => a.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: `Article ${id} introuvable` });
+  }
+
+  if (title) {
+    articles[index].title = title;
+  }
+  if (author) {
+    articles[index].author = author;
+  }
+
+  res.status(200).json({ message: 'Article ${id} mis à jour', article: articles[index] });
+
+}
+
+const deleteArticle = (req, res) => {
+  const id = Number(req.params.id);
+  const articleExiste = articles.some(a => a.id === id);
+
+  if (!articleExiste) {
+    return res.status(404).json({ error: 'Impossible de supprimer : article ${id} introuvable' });
+  }
+
+  articles = articles.filter(a => a.id !== id);
+
+  res.status(200).json({ message: 'Article ${id} supprimé avec succès' });
+
+}
 
 module.exports = {
-    getAllArticles,
-    getArticleById,
-    createArticle
+  getAllArticles,
+  getArticleById,
+  createArticle,
+  updateArticle,
+  deleteArticle
 }
