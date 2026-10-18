@@ -1,12 +1,31 @@
 const express = require('express'); // 1. charger la bibliothèque Express
-const app = express(); // 2. créer l’application : c’est notre serveur
-const PORT = 3000;
-app . use( express . json () ) ;
-
-
-
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
 const articleRoutes = require('./routes/articleRoutes');
-app.use('/api/articles', articleRoutes);
+const userRoutes = require('./routes/userRoutes');
+
+dotenv.config(); // charger les variables d'environnement depuis le fichier .env
+
+const app = express(); // 2. créer l’application : c’est notre serveur
+const PORT = process.env.PORT || 3000;
+
+app.use( express.json() ) ;
+
+(async () => {
+  try {
+    await connectDB(process.env.MONGODB_URI);
+
+    app.listen(PORT, () => {
+      console.log(`Serveur MERN en écoute sur http://localhost:${PORT}`);
+    });
+
+  } catch (error) {
+    console.error('Erreur critique de démarrage du serveur :', error);
+    process.exit(1);
+  }
+})();
+
+
 
 
 //Execr 1 ques1  : info sur app 
@@ -20,16 +39,6 @@ app.get('/about', (req, res) => {
 });
 
 
-
-const userRoutes = require('./routes/userRoutes');
+app.use('/api/articles', articleRoutes);
 app.use('/api/users', userRoutes);
-
-
-
-
-// 4. démarrer le serveur : il attend les requêtes sur le port 3000
-app.listen(PORT, () => {
-  console.log(`Serveur disponible sur http://localhost:${PORT}`);
-});
-
 
