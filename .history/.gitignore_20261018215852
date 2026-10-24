@@ -1,6 +1,0 @@
-node_modules/
-./history/
-.env
-.env.*
-!.env.example
-node_modules/
