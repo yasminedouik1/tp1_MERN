@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema(
             trim: true,
             match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Format d'email invalide (ex: yasmine@polytechnique.tn)"]
         },
+        password:{
+            type: String,
+            required: [true, 'Le mot de passe est obligatoire'],
+            minlength: [6, 'Le mot de passe doit contenir au moins 6 caractères']
+        },
         age: {
             type: Number,
             min: [4, "L'age minimum autorise est de 4 ans"]

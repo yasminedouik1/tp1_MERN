@@ -9,7 +9,7 @@ dotenv.config(); // charger les variables d'environnement depuis le fichier .env
 const app = express(); // 2. créer l’application : c’est notre serveur
 const PORT = process.env.PORT || 3000;
 
-app.use( express.json() ) ;
+app.use(express.json());
 
 (async () => {
   try {
